@@ -1,0 +1,25 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonyshibitov/todo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anthonyshibitov/todo/issues"
+  },
+  "homepage": "https://github.com/anthonyshibitov/todo#readme",
+  "dependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
