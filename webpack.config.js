@@ -15,4 +15,5 @@ module.exports = {
             },
         ],
     },
+    mode: 'development'
 };
