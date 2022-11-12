@@ -1,9 +1,13 @@
 export default class List {
+    static listCount = 0;
     #title;
+    #id;
     #events = [];
 
     constructor(title) {
         this.#title = title;
+        this.#id = List.listCount;
+        List.listCount++;
     }
 
     getTitle() {
@@ -18,9 +22,13 @@ export default class List {
         }
     }
 
+    getID() {
+        return this.#id;
+    }
+
     addEvent(event) {
         this.#events.push(event);
-        //event.addToList(this);
+        event.setParent(this.#id);
     }
 
     getEvents() {
@@ -28,7 +36,7 @@ export default class List {
     }
 
     printMe() {
-        console.log(this.#title);
+        console.log('list:', this.#title, '\nid:', this.#id);
         this.#events.forEach((e) => {
             e.printMe();
         });

@@ -63,6 +63,10 @@ export default class Event {
         list.addEvent(this);
     }
 
+    setParent(id) {
+        this.#parentList = id;
+    }
+
     getParent() {
         return this.#parentList;
     }
