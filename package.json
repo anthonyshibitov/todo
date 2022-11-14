@@ -25,10 +25,13 @@
   "devDependencies": {
     "css-loader": "^6.7.1",
     "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
     "style-loader": "^3.3.1"
   },
   "type": "module",
   "jest": {
-    "roots": ["./src/tests"]
+    "roots": [
+      "./src/tests"
+    ]
   }
 }
