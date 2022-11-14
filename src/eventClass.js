@@ -1,10 +1,27 @@
 export default class Event {
+    static eventCount = 0;
     #title;
     #description;
     #dueDate;
     #priority;
     #completed;
     #parentList;
+    #id;
+
+    constructor(title, desc, dueDate, priority, completed) {
+        this.#title = title;
+        this.#description = desc;
+        this.#dueDate = dueDate;
+        this.#priority = priority;
+        this.#completed = completed;
+        this.#id = Event.eventCount;
+        this.#parentList = -1; // If event has no parent, ID is -1
+        Event.eventCount++;
+    }
+
+    getID() {
+        return this.#id;
+    }
 
     getTitle() {
         return this.#title;
@@ -54,7 +71,7 @@ export default class Event {
         return this.#completed;
     }
 
-    setCompleted(completed){
+    setCompletedStatus(completed){
         this.#completed = completed;
     }
 
@@ -69,14 +86,6 @@ export default class Event {
 
     getParent() {
         return this.#parentList;
-    }
-
-    constructor(title, desc, dueDate, priority, completed) {
-        this.#title = title;
-        this.#description = desc;
-        this.#dueDate = dueDate;
-        this.#priority = priority;
-        this.#completed = completed;
     }
 
     printMe() {

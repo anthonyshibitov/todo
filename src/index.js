@@ -18,3 +18,15 @@ listTest2.addEvent(eventTest2);
 listTest2.printMe();
 
 console.log('event tets 2 parent, shuold be 1', eventTest2.getParent());
+
+console.log("stringify:", JSON.stringify(listTest2));
+console.log(listTest2);
+
+const testEventObject = {
+    "title": eventTest.getTitle(),
+    "description": eventTest.getDescription(),
+    "dueDate": eventTest.getDueDate(),
+    "priority": eventTest.getPriority()
+}
+
+console.log("string 2:", JSON.stringify(testEventObject));
