@@ -1,78 +1,82 @@
 export default class Event {
     static eventCount = 0;
-    #title;
-    #description;
-    #dueDate;
-    #priority;
-    #completed;
-    #parentList;
-    #id;
+    title;
+    description;
+    dueDate;
+    priority;
+    completed;
+    parentList;
+    id;
 
     constructor(title, desc, dueDate, priority, completed) {
-        this.#title = title;
-        this.#description = desc;
-        this.#dueDate = dueDate;
-        this.#priority = priority;
-        this.#completed = completed;
-        this.#id = Event.eventCount;
-        this.#parentList = -1; // If event has no parent, ID is -1
+        this.title = title;
+        this.description = desc;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.completed = completed;
+        this.id = Event.eventCount;
+        this.parentList = -1; // If event has no parent, ID is -1
         Event.eventCount++;
     }
 
     getID() {
-        return this.#id;
+        return this.id;
+    }
+
+    setID(id) {
+        this.id = id;
     }
 
     getTitle() {
-        return this.#title;
+        return this.title;
     }
 
     setTitle(title) {
         if(title == ''){
             return false;
         } else {
-            this.#title = title;
+            this.title = title;
         }
     }
 
     getDescription() {
-        return this.#description;
+        return this.description;
     }
 
     setDescription(description) {
         if(description == ''){
             return false;
         } else {
-            this.#description = description;
+            this.description = description;
         }
     }
 
     getDueDate() {
-        return this.#dueDate;
+        return this.dueDate;
     }
 
     setDueDate(dueDate) {
         if(dueDate == ''){
             return false;
         } else {
-            this.#dueDate = dueDate;
+            this.dueDate = dueDate;
         }
     }
 
     getPriority() {
-        return this.#priority;
+        return this.priority;
     }
 
     setPriority(priority) {
-        this.#priority = priority;
+        this.priority = priority;
     }
 
     getCompletedStatus() {
-        return this.#completed;
+        return this.completed;
     }
 
     setCompletedStatus(completed){
-        this.#completed = completed;
+        this.completed = completed;
     }
 
     // ! Unsure if this will actually be used, but just in case. Also it looks cool.
@@ -81,14 +85,14 @@ export default class Event {
     }
 
     setParent(id) {
-        this.#parentList = id;
+        this.parentList = id;
     }
 
     getParent() {
-        return this.#parentList;
+        return this.parentList;
     }
 
     printMe() {
-        console.log(this.#title, ":", this.#description);
+        console.log(this.title, ":", this.description);
     }
 }

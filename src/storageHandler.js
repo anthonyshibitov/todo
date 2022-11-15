@@ -8,6 +8,9 @@
 //
 // stored in 'todoData'
 
+import List from './listClass.js';
+import Event from './eventClass.js';
+
 export default class LocalStorageHandler {
 
     writeList(lists){
@@ -15,7 +18,21 @@ export default class LocalStorageHandler {
     }
 
     getList(){
-        return JSON.parse(window.localStorage.getItem('todoData'));
+        const buildLists = JSON.parse(window.localStorage.getItem('todoData'));
+        const returnLists = [];
+
+        buildLists.forEach(list => {
+            const newList = new List(list.title);
+            newList.setID(list.id);
+            
+            list.events.forEach(event => {
+                const newEvent = new Event(event.title, event.description, event.dueDate, event.priority, event.completed);
+                newEvent.setID(event.id);
+                newList.addEvent(newEvent);
+            });
+            returnLists.push(newList);
+        });
+        return returnLists;
     }
 
 }

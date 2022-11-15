@@ -1,17 +1,17 @@
 export default class List {
     static listCount = 0;
-    #title;
-    #id;
-    #events = [];
+    title;
+    id;
+    events = [];
 
     constructor(title) {
-        this.#title = title;
-        this.#id = List.listCount;
+        this.title = title;
+        this.id = List.listCount;
         List.listCount++;
     }
 
     findEventByID(eventID) {
-        const result = this.#events.findIndex((event) => {
+        const result = this.events.findIndex((event) => {
             return event.getID() == eventID;
         });
         return result;
@@ -20,7 +20,7 @@ export default class List {
     getEventByID(eventID) {
         const index = this.findEventByID(eventID);
         if(index != -1){
-            return this.#events[index]
+            return this.events[index]
         } else {
             return 1;
         }
@@ -29,7 +29,7 @@ export default class List {
     removeElementByID(eventID) {
         const index = this.findEventByID(eventID);
         if(index != -1){
-            const result = this.#events.splice(index, 1);
+            const result = this.events.splice(index, 1);
             if(result == []){
                 return 1;
             }
@@ -39,32 +39,36 @@ export default class List {
     }
 
     getTitle() {
-        return this.#title;
+        return this.title;
     }
 
     setTitle(title) {
         if(title == ''){
             return false;
         } else {
-            this.#title = title;
+            this.title = title;
         }
     }
 
     getID() {
-        return this.#id;
+        return this.id;
+    }
+
+    setID(id) {
+        this.id = id;
     }
 
     addEvent(event) {
         if(event.getParent() == -1){
-            this.#events.push(event);
-            event.setParent(this.#id);
+            this.events.push(event);
+            event.setParent(this.id);
         } else {
             return 1;
         }
     }
 
     getEvents() {
-        return this.#events;
+        return this.events;
     }
 
     // Return JSON.stringify-d object, due to private variables
@@ -73,8 +77,8 @@ export default class List {
     }
 
     printMe() {
-        console.log('list:', this.#title, '\nid:', this.#id);
-        this.#events.forEach((e) => {
+        console.log('list:', this.title, '\nid:', this.id);
+        this.events.forEach((e) => {
             e.printMe();
         });
     }
