@@ -1,4 +1,5 @@
 import './style.css';
+import './style2.css';
 import Event from './eventClass.js';
 import List from './listClass.js';
 import Storage from './storageHandler.js';
