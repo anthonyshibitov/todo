@@ -38,6 +38,7 @@ li {
 .list-container {
     height: 0;
     overflow: hidden;
+    cursor: pointer;
 }
 
 #home-lists.active .list-container, #user-lists.active .list-container {

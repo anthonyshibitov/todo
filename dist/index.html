@@ -14,22 +14,28 @@
             <button data-close-button class="close-button">&times;</button>
         </div>
         <div class="modal-body">
-            <form action="" class="new-event-form">
-                <input type="text" name="event-title" id="event-title" placeholder="Title of the event">
-                <textarea name="event-desc" id="event-desc" cols="20" rows="6" style="resize: none;"></textarea>
-                <label for="due-date">Due date</label>
-                <input type="date" name="due-date" id="due-date">
-                <label for="event-priority">Priority</label>
-                <select name="event-priority" id="event-priority">
-                    <option value="high">High</option>
-                    <option value="normal">Normal</option>
-                    <option value="low">Low</option>
-                </select>
-                <label for="event-list-parent">List</label>
-                <select name="event-list-parent" id="event-list-parent">
-                    <!-- where lists are injected -->
-                </select>
-                <button>Add Event</button>
+            <form action="" class="new-event-form" id="new-event-form">
+                <input type="text" required name="event-title" id="event-title" placeholder="Title of the event">
+                <textarea name="event-desc" required id="event-desc" placeholder="Description of the event" cols="20" rows="6" style="resize: none;"></textarea>
+                <div class="form-line-item">
+                    <label for="due-date">Due date</label>
+                    <input type="date" required name="due-date" id="due-date">
+                </div>
+                <div class="form-line-item">
+                    <label for="event-priority">Priority</label>
+                    <select name="event-priority" id="event-priority">
+                        <option value="high">High</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="form-line-item">
+                    <label for="event-list-parent">List</label>
+                    <select name="event-list-parent" id="event-list-parent">
+                        <!-- where lists are injected -->
+                    </select>
+                </div>
+                <button id="form-add-event">Add Event</button>
             </form>
         </div>
     </div>
@@ -55,8 +61,8 @@
                 </ul>
                 <ul id="user-lists">
                     <div class="list-label">Lists</div>
-                    <div class="list-container">
-                        <li>default</li>
+                    <div class="list-container" id="list-container">
+                        <!-- user lists injected hereee -->
                     </div>
                 </ul>
             </div>

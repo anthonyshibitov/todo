@@ -2,6 +2,7 @@ import './css/body.css';
 import './css/header-bar.css';
 import './css/nav-bar.css';
 import './css/modal.css';
+import './css/form.css';
 import Event from './eventClass.js';
 import List from './listClass.js';
 import Storage from './storageHandler.js';
@@ -10,6 +11,7 @@ import DOM from './DOMhandler.js';
 let eventTest = new Event('title','descrip','11/12/22', 'HIGH', false);
 let eventTest2 = new Event('title2', 'descrip2', '11/13/22', 'LOW', false);
 
+/*
 const lists = [];
 
 const defaultList = new List('default');
@@ -26,6 +28,6 @@ lists.push(listTest2);
 const storage = new Storage();
 storage.writeList(lists);
 const result = storage.getList();
+*/
 
 const pageDOM = new DOM();
-pageDOM.attachListeners();
