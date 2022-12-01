@@ -8,11 +8,39 @@
     <script src="main.js" defer></script>
 </head>
 <body>
+    <div class="modal" id="new-event-modal">
+        <div class="modal-header">
+            <div class="modal-title">New task</div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form action="" class="new-event-form">
+                <input type="text" name="event-title" id="event-title" placeholder="Title of the event">
+                <textarea name="event-desc" id="event-desc" cols="20" rows="6" style="resize: none;"></textarea>
+                <label for="due-date">Due date</label>
+                <input type="date" name="due-date" id="due-date">
+                <label for="event-priority">Priority</label>
+                <select name="event-priority" id="event-priority">
+                    <option value="high">High</option>
+                    <option value="normal">Normal</option>
+                    <option value="low">Low</option>
+                </select>
+                <label for="event-list-parent">List</label>
+                <select name="event-list-parent" id="event-list-parent">
+                    <!-- where lists are injected -->
+                </select>
+                <button>Add Event</button>
+            </form>
+        </div>
+    </div>
+    <div id="overlay">
+        <!-- this is where the opaque thingy goes teehee -->
+    </div>
     <div class="page-container">
         <header class="header-bar">
             <div class="header-flex-container">
                 <h1>Projects</h1>
-                <button name="new-task-btn" id="new-task-btn">+ new task</button>
+                <button data-modal-target='#new-event-modal' name="new-task-btn" id="new-task-btn">+ new task</button>
             </div>
         </header>
         <nav class="nav-bar">

@@ -11,7 +11,6 @@ export default class DOMHandler {
 
         const homeLists = window.document.getElementById('home-lists');
         const homeListsLabel = homeLists.firstElementChild;
-        console.log(homeListsLabel);
         homeListsLabel.addEventListener('click', () => {
             homeLists.classList.toggle('active');
         });
@@ -21,5 +20,46 @@ export default class DOMHandler {
         userListsLabel.addEventListener('click', () => {
             userLists.classList.toggle('active');
         })
+
+        const openNewEventButtons = window.document.querySelectorAll('[data-modal-target]');
+        const closeNewEventButtons = window.document.querySelectorAll('[data-close-button]');
+        const overlay = window.document.getElementById('overlay');
+
+        overlay.addEventListener('click', () => {
+            const modals = window.document.querySelectorAll('.modal.active');
+            modals.forEach(modal => {
+                this.closeModal(modal, overlay);
+            });
+        });
+
+        openNewEventButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = window.document.querySelector(button.dataset.modalTarget);
+                this.openModal(modal, overlay);
+            });
+        });
+
+        closeNewEventButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                this.closeModal(modal, overlay);
+            })
+        })
+    }
+
+    openModal(modal, overlay) {
+        if (modal == null) return;
+        modal.classList.add('active');
+        overlay.classList.add('active');
+    }
+
+    closeModal(modal, overlay) {
+        if (modal == null) return;
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    updateParentList(lists) {
+
     }
 }

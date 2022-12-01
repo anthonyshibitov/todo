@@ -14,17 +14,19 @@
 } */
 
 li {
-    margin: 5px 10px;
+    margin: 5px 20px;
+    font-size: 0.9rem;
 }
 
 .list-label {
     position: relative;
+    padding: 10px;
 }
 
 .list-label::before {
     content: '+';
     position: absolute;
-    right: 25px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -41,4 +43,8 @@ li {
 #home-lists.active .list-container, #user-lists.active .list-container {
     height: auto;
     /* overflow: auto; */
+}
+
+.list-label:hover {
+    background-color: hsl(270, 12%, 95%);
 }
