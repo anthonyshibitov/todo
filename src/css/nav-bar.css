@@ -13,14 +13,10 @@
     margin: 0px 0px 8px 0px;
 } */
 
-li {
-    margin: 5px 20px;
-    font-size: 0.9rem;
-}
-
 .list-label {
     position: relative;
     padding: 10px;
+    cursor: pointer;
 }
 
 .list-label::before {
@@ -41,11 +37,25 @@ li {
     cursor: pointer;
 }
 
+.list-container li {
+    padding: 5px 20px;
+    font-size: 0.9rem;
+}
+
 #home-lists.active .list-container, #user-lists.active .list-container {
     height: auto;
     /* overflow: auto; */
 }
 
 .list-label:hover {
+    background-color: hsl(270, 12%, 95%);
+}
+
+#new-list-button {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.clickable-list:hover {
     background-color: hsl(270, 12%, 95%);
 }

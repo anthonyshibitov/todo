@@ -7,10 +7,13 @@ export default class DOMHandler {
     lists = [];
     
     constructor() {
-        const defaultList = new List('default');
-        const testList1 = new List('test list 1');
-        this.lists.push(defaultList);
-        this.lists.push(testList1);
+        const storage = new Storage();
+        this.lists = storage.getList();
+
+        // const defaultList = new List('default');
+        // const testList1 = new List('test list 1');
+        // this.lists.push(defaultList);
+        // this.lists.push(testList1);
         
         this.attachListeners();
         this.redrawLists();
@@ -37,11 +40,17 @@ export default class DOMHandler {
         const formAddEvent = window.document.getElementById('form-add-event');
         formAddEvent.addEventListener('click', (e) => {
             e.preventDefault();
-            const eventTitle = window.document.getElementById('event-title').value;
-            const eventDesc = window.document.getElementById('event-desc').value;
-            const eventDueDate = window.document.getElementById('due-date').value;
-            const eventPriority = window.document.getElementById('event-priority').value;
-            const eventParentList = parseInt(window.document.getElementById('event-list-parent').value);
+            const eventTitleEl = window.document.getElementById('event-title');
+            const eventTitle = eventTitleEl.value;
+            const eventDescEl = window.document.getElementById('event-desc');
+            const eventDesc = eventDescEl.value;
+            const eventDueDateEl = window.document.getElementById('due-date');
+            const eventDueDate = eventDueDateEl.value;
+            const eventPriorityEl = window.document.getElementById('event-priority');
+            const eventPriority = eventPriorityEl.value;
+            const eventParentListEl = window.document.getElementById('event-list-parent');
+            const eventParentList = parseInt(eventParentListEl.value);
+
             // Close modal now
 
             const form = window.document.getElementById('new-event-form');
@@ -58,6 +67,27 @@ export default class DOMHandler {
 
                 listToAddTo.addEvent(newEvent);
                 listToAddTo.printMe();
+
+                eventTitleEl.classList.remove('invalid');
+                eventDescEl.classList.remove('invalid');
+                eventDueDateEl.classList.remove('invalid');
+            } else {
+                console.log('invalid!');
+                if(eventTitle == ''){
+                    eventTitleEl.classList.add('invalid');
+                } else {
+                    eventTitleEl.classList.remove('invalid');
+                }
+                if(eventDesc == ''){
+                    eventDescEl.classList.add('invalid');
+                } else {
+                    eventDescEl.classList.remove('invalid');
+                }
+                if(eventDueDate == ''){
+                    eventDueDateEl.classList.add('invalid');
+                } else {
+                    eventDueDateEl.classList.remove('invalid');
+                }
             }
         });
 
@@ -93,7 +123,8 @@ export default class DOMHandler {
 
         this.lists.forEach(list => {
             let liElement = document.createElement('li');
-            liElement.innerText = list.getTitle();
+            liElement.innerHTML = "&#10095; " + list.getTitle();
+            liElement.classList.add('clickable-list');
             liElement.addEventListener('click', () => {
                 console.log('clicked', list.getTitle());
             });
@@ -104,6 +135,18 @@ export default class DOMHandler {
             optionElement.innerText = list.getTitle();
             listParentElement.appendChild(optionElement);
         });
+
+        const addListButton = document.createElement('li');
+        addListButton.innerHTML = "<i>add new list</i>";
+        addListButton.id = 'new-list-button';
+        addListButton.addEventListener('click', () => {
+            console.log('clicked add list button!');
+        });
+        listListElement.appendChild(addListButton);
+    }
+
+    drawListEvents(list) {
+
     }
 
     openModal(modal, overlay) {

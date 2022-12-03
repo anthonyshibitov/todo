@@ -11,10 +11,14 @@
     align-items: center;
 }
 
-input:invalid {
+/* input:invalid {
     border: 1px solid rgba(255, 0, 0, 0.5);
 }
 
 textarea:invalid {
     border: 1px solid rgba(255, 0, 0, 0.5);
+} */
+
+.invalid {
+    border: solid rgba(255, 0, 0, 0.5);
 }
