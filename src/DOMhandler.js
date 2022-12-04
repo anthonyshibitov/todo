@@ -51,6 +51,42 @@ export default class DOMHandler {
             const eventParentListEl = window.document.getElementById('event-list-parent');
             const eventParentList = parseInt(eventParentListEl.value);
 
+            eventTitleEl.addEventListener('click', () => {
+                if(eventTitleEl.classList.contains('invalid')){
+                    eventTitleEl.classList.remove('invalid');
+                }
+                if(eventDescEl.classList.contains('invalid')){
+                    eventDescEl.classList.remove('invalid');
+                }
+                if(eventDueDateEl.classList.contains('invalid')){
+                    eventDueDateEl.classList.remove('invalid');
+                }
+            });
+
+            eventDescEl.addEventListener('click', () => {
+                if(eventTitleEl.classList.contains('invalid')){
+                    eventTitleEl.classList.remove('invalid');
+                }
+                if(eventDescEl.classList.contains('invalid')){
+                    eventDescEl.classList.remove('invalid');
+                }
+                if(eventDueDateEl.classList.contains('invalid')){
+                    eventDueDateEl.classList.remove('invalid');
+                }
+            });
+
+            eventDueDateEl.addEventListener('click', () => {
+                if(eventTitleEl.classList.contains('invalid')){
+                    eventTitleEl.classList.remove('invalid');
+                }
+                if(eventDescEl.classList.contains('invalid')){
+                    eventDescEl.classList.remove('invalid');
+                }
+                if(eventDueDateEl.classList.contains('invalid')){
+                    eventDueDateEl.classList.remove('invalid');
+                }
+            });
+
             // Close modal now
 
             const form = window.document.getElementById('new-event-form');

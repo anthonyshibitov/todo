@@ -71,11 +71,6 @@ export default class List {
         return this.events;
     }
 
-    // Return JSON.stringify-d object, due to private variables
-    stringify() {
-
-    }
-
     printMe() {
         console.log('list:', this.title, '\nid:', this.id);
         this.events.forEach((e) => {
