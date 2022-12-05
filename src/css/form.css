@@ -22,3 +22,11 @@ textarea:invalid {
 .invalid {
     border: solid rgba(255, 0, 0, 0.5);
 }
+
+textarea {
+    font-family: inherit;
+}
+
+input {
+    font-family: inherit;
+}

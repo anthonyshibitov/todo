@@ -2,3 +2,19 @@
     background-color: white;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+table tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+table tr:hover{
+    background-color: hsl(259, 84%, 83%);;
+}

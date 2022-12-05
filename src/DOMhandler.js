@@ -17,6 +17,7 @@ export default class DOMHandler {
         
         this.attachListeners();
         this.redrawLists();
+        this.drawListEvents(this.lists[0]);
     }
 
     attachListeners() {
@@ -102,6 +103,9 @@ export default class DOMHandler {
                 });
 
                 listToAddTo.addEvent(newEvent);
+                this.save();
+                //this.drawListEvents(this.lists[0]);
+                this.drawListEvents(this.lists.find(list => list.getID() == eventParentList));
                 listToAddTo.printMe();
 
                 eventTitleEl.classList.remove('invalid');
@@ -150,7 +154,7 @@ export default class DOMHandler {
                 const modal = button.closest('.modal');
                 this.closeModal(modal, overlay);
             })
-        })
+        });
     }
 
     redrawLists() {
@@ -163,6 +167,11 @@ export default class DOMHandler {
             liElement.classList.add('clickable-list');
             liElement.addEventListener('click', () => {
                 console.log('clicked', list.getTitle());
+            });
+            liElement.addEventListener('click', () => {
+                const table = window.document.getElementById('list-table');
+                table.dataset.list = list.getID();
+                this.drawListEvents(list);
             });
             listListElement.appendChild(liElement);
 
@@ -182,7 +191,34 @@ export default class DOMHandler {
     }
 
     drawListEvents(list) {
+        const listTable = window.document.getElementById('list-table');
+        listTable.innerHTML = '';
+        const events = list.getEvents();
+        events.forEach(event => {
+            const tableRow = window.document.createElement('tr');
+            tableRow.dataset.eventID = event.getID();
 
+            const eventTitleTD = window.document.createElement('td');
+            eventTitleTD.innerHTML = event.getTitle();
+            const eventDueDateTD = window.document.createElement('td');
+            eventDueDateTD.innerHTML = event.getDueDate();
+            const eventPriorityTD = window.document.createElement('td');
+            eventPriorityTD.innerHTML = event.getPriority();
+            const eventCompletedTD = window.document.createElement('td');
+            eventCompletedTD.innerHTML = event.getCompletedStatus();
+            
+            tableRow.appendChild(eventTitleTD);
+            tableRow.appendChild(eventDueDateTD);
+            tableRow.appendChild(eventPriorityTD);
+            tableRow.appendChild(eventCompletedTD);
+
+            listTable.appendChild(tableRow);
+        });
+    }
+
+    save(){
+        const storage = new Storage();
+        storage.writeList(this.lists);
     }
 
     openModal(modal, overlay) {
