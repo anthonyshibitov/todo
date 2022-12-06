@@ -9,15 +9,10 @@ export default class DOMHandler {
     constructor() {
         const storage = new Storage();
         this.lists = storage.getList();
-
-        // const defaultList = new List('default');
-        // const testList1 = new List('test list 1');
-        // this.lists.push(defaultList);
-        // this.lists.push(testList1);
         
         this.attachListeners();
         this.redrawLists();
-        this.drawListEvents(this.lists[0]);
+        //this.drawListEvents(this.lists[0]);
     }
 
     attachListeners() {
@@ -191,7 +186,7 @@ export default class DOMHandler {
                 console.log('clicked', list.getTitle());
             });
             liElement.addEventListener('click', () => {
-                const table = window.document.getElementById('list-table');
+                const table = window.document.getElementById('data-displayer-wrapper');
                 table.dataset.list = list.getID();
                 this.drawListEvents(list);
             });
@@ -203,7 +198,7 @@ export default class DOMHandler {
             listParentElement.appendChild(optionElement);
         });
 
-        const addListButton = document.createElement('button');
+        const addListButton = document.createElement('li');
         addListButton.innerHTML = "<i>add new list</i>";
         addListButton.id = 'new-list-btn';
         addListButton.dataset.modalTarget = '#new-list-modal';
@@ -218,20 +213,21 @@ export default class DOMHandler {
     }
 
     drawListEvents(list) {
-        const listTable = window.document.getElementById('list-table');
+        const listTable = window.document.getElementById('data-displayer-wrapper');
         listTable.innerHTML = '';
         const events = list.getEvents();
         events.forEach(event => {
-            const tableRow = window.document.createElement('tr');
+            const tableRow = window.document.createElement('div');
+            tableRow.classList.add('data-row');
             tableRow.dataset.eventID = event.getID();
 
-            const eventTitleTD = window.document.createElement('td');
+            const eventTitleTD = window.document.createElement('div');
             eventTitleTD.innerHTML = event.getTitle();
-            const eventDueDateTD = window.document.createElement('td');
+            const eventDueDateTD = window.document.createElement('div');
             eventDueDateTD.innerHTML = event.getDueDate();
-            const eventPriorityTD = window.document.createElement('td');
+            const eventPriorityTD = window.document.createElement('div');
             eventPriorityTD.innerHTML = event.getPriority();
-            const eventCompletedTD = window.document.createElement('td');
+            const eventCompletedTD = window.document.createElement('div');
             eventCompletedTD.innerHTML = event.getCompletedStatus();
             
             tableRow.appendChild(eventTitleTD);

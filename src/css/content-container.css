@@ -2,20 +2,14 @@
     background-color: white;
 }
 
-table {
-    border-collapse: collapse;
+.data-displayer-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    gap: 1rem;
 }
 
-th, td {
-    text-align: left;
-    padding: 0.5rem;
-}
-
-/* Grey every other table element */
-table tr:nth-child(odd) {
-    background-color: #eee;
-}
-
-table tr:hover{
-    background-color: hsl(259, 84%, 83%);;
+.data-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
