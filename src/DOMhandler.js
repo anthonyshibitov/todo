@@ -38,6 +38,22 @@ export default class DOMHandler {
             userLists.classList.toggle('active');
         })
 
+        const formAddList = window.document.getElementById('form-add-list');
+        formAddList.addEventListener('click', (e) => {
+            e.preventDefault();
+            const listTitle = window.document.getElementById('list-name').value;
+
+            const form = window.document.getElementById('new-list-form');
+            const valid = form.checkValidity();
+            if(valid){
+                const newList = new List(listTitle);
+                this.lists.push(newList);
+                this.redrawLists();
+                this.closeModal(formAddList.closest('.modal'), window.document.getElementById('overlay'));
+                this.save();
+            }
+        });
+
         const formAddEvent = window.document.getElementById('form-add-event');
         formAddEvent.addEventListener('click', (e) => {
             e.preventDefault();
@@ -104,7 +120,10 @@ export default class DOMHandler {
 
                 listToAddTo.addEvent(newEvent);
                 this.save();
-                //this.drawListEvents(this.lists[0]);
+                // Redraw list to parent of new event
+                // May want to update to redraw list which was
+                // already being viewed. List ID built into
+                // table dataset for this functionality
                 this.drawListEvents(this.lists.find(list => list.getID() == eventParentList));
                 listToAddTo.printMe();
 
@@ -143,6 +162,7 @@ export default class DOMHandler {
         });
 
         openNewEventButtons.forEach(button => {
+            console.log(button.name);
             button.addEventListener('click', () => {
                 const modal = window.document.querySelector(button.dataset.modalTarget);
                 this.openModal(modal, overlay);
@@ -160,6 +180,8 @@ export default class DOMHandler {
     redrawLists() {
         const listListElement = window.document.getElementById('list-container');
         const listParentElement = window.document.getElementById('event-list-parent');
+
+        listListElement.innerHTML = '';
 
         this.lists.forEach(list => {
             let liElement = document.createElement('li');
@@ -181,11 +203,16 @@ export default class DOMHandler {
             listParentElement.appendChild(optionElement);
         });
 
-        const addListButton = document.createElement('li');
+        const addListButton = document.createElement('button');
         addListButton.innerHTML = "<i>add new list</i>";
-        addListButton.id = 'new-list-button';
+        addListButton.id = 'new-list-btn';
+        addListButton.dataset.modalTarget = '#new-list-modal';
+        addListButton.name = 'new-list-btn';
+        
+        const overlay = window.document.getElementById('overlay');
         addListButton.addEventListener('click', () => {
-            console.log('clicked add list button!');
+            const modal = window.document.querySelector(addListButton.dataset.modalTarget);
+            this.openModal(modal, overlay);
         });
         listListElement.appendChild(addListButton);
     }

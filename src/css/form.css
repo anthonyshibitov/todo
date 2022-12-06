@@ -1,4 +1,4 @@
-.new-event-form {
+.new-event-form, .new-list-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
