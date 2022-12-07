@@ -51,6 +51,10 @@
     background-color: hsl(270, 12%, 95%);
 }
 
+.selected {
+    background-color: #f2f1f4;
+}
+
 #new-list-button {
     font-size: 0.8rem;
     color: rgba(0, 0, 0, 0.7);

@@ -2,14 +2,46 @@
     background-color: white;
 }
 
+.list-header {
+    display: flex;
+    padding: 2rem 3rem;
+    font-size: 1.5rem;
+    font-style: bold;
+}
+
 .data-displayer-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 3rem;
+    padding: 0rem 3rem 1rem 3rem;
     gap: 1rem;
 }
 
-.data-row {
+.data-row, .data-header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+
+.data-header {
+    font-weight: bold;
+}
+
+.actions {
+    display: flex;
+}
+
+.completed {
+    font-style: italic;
+    color: #3f3f3f;
+    position: relative;
+}
+
+.completed:after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 1px;
+    background: #3f3f3f;
+    content: "";
+    width: 100%;
+    display: block;
+  }

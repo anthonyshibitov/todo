@@ -12,7 +12,7 @@ export default class DOMHandler {
         
         this.attachListeners();
         this.redrawLists();
-        //this.drawListEvents(this.lists[0]);
+        this.drawListEvents(this.lists[0]);
     }
 
     attachListeners() {
@@ -145,6 +145,20 @@ export default class DOMHandler {
             }
         });
 
+        const allEvents = document.getElementById('all-events');
+        allEvents.addEventListener('click', (e) => {
+            let combinedLists = new List('all');
+            this.lists.forEach(list => {
+                const currentEvents = list.getEvents();
+                currentEvents.forEach(event => {
+                    const eventCopy = event;
+                    eventCopy.setParent(-1);
+                    combinedLists.addEvent(event);
+                });
+            });
+            this.drawListEvents(combinedLists);
+        });
+
         const openNewEventButtons = window.document.querySelectorAll('[data-modal-target]');
         const closeNewEventButtons = window.document.querySelectorAll('[data-close-button]');
         const overlay = window.document.getElementById('overlay');
@@ -184,11 +198,14 @@ export default class DOMHandler {
             liElement.classList.add('clickable-list');
             liElement.addEventListener('click', () => {
                 console.log('clicked', list.getTitle());
-            });
-            liElement.addEventListener('click', () => {
                 const table = window.document.getElementById('data-displayer-wrapper');
                 table.dataset.list = list.getID();
                 this.drawListEvents(list);
+                const listItems = document.querySelectorAll('.clickable-list');
+                listItems.forEach(list => {
+                    list.style.backgroundColor = 'inherit';
+                });
+                liElement.style.backgroundColor = '#f2f1f4';
             });
             listListElement.appendChild(liElement);
 
@@ -213,13 +230,42 @@ export default class DOMHandler {
     }
 
     drawListEvents(list) {
+        const listHeader = document.getElementById('list-header');
+        listHeader.innerHTML = '';
+        const listNameEl = document.createElement('div');
+        listNameEl.innerHTML = list.getTitle();
+        listHeader.appendChild(listNameEl);
+
         const listTable = window.document.getElementById('data-displayer-wrapper');
         listTable.innerHTML = '';
         const events = list.getEvents();
+
+        const eventHeader = document.createElement('div');
+        eventHeader.classList.add('data-header');
+
+        const eventTitleTH = document.createElement('div');
+        eventTitleTH.innerHTML = 'Title';
+        const eventDueDateTH = document.createElement('div');
+        eventDueDateTH.innerHTML = 'Due Date';
+        const eventPriorityTH = document.createElement('div');
+        eventPriorityTH.innerHTML = 'Priority';
+        const eventCompletedTH = document.createElement('div');
+        eventCompletedTH.innerHTML = 'Completed';
+        const eventActionsTH = document.createElement('div');
+        eventActionsTH.innerHTML = 'Actions';
+        
+        eventHeader.appendChild(eventTitleTH);
+        eventHeader.appendChild(eventDueDateTH);
+        eventHeader.appendChild(eventPriorityTH);
+        eventHeader.appendChild(eventCompletedTH);
+        eventHeader.appendChild(eventActionsTH);
+
+        listTable.appendChild(eventHeader);
+
         events.forEach(event => {
             const tableRow = window.document.createElement('div');
             tableRow.classList.add('data-row');
-            tableRow.dataset.eventID = event.getID();
+            tableRow.dataset.eventId = event.getID();
 
             const eventTitleTD = window.document.createElement('div');
             eventTitleTD.innerHTML = event.getTitle();
@@ -229,11 +275,30 @@ export default class DOMHandler {
             eventPriorityTD.innerHTML = event.getPriority();
             const eventCompletedTD = window.document.createElement('div');
             eventCompletedTD.innerHTML = event.getCompletedStatus();
+            if(event.getCompletedStatus()){
+                tableRow.classList.add('completed');
+            }
+
+            const actionsTD = window.document.createElement('div');
+            actionsTD.classList.add('actions');
+            
+            const completeActionTD = document.createElement('div');
+            completeActionTD.innerHTML = 'complete';
+            completeActionTD.addEventListener('click', (e) => {
+                const currentStatus = event.getCompletedStatus();
+                event.setCompletedStatus(!currentStatus);
+                tableRow.classList.toggle('completed');
+                eventCompletedTD.innerHTML = event.getCompletedStatus();
+                this.save();
+            });
+
+            actionsTD.appendChild(completeActionTD);
             
             tableRow.appendChild(eventTitleTD);
             tableRow.appendChild(eventDueDateTD);
             tableRow.appendChild(eventPriorityTD);
             tableRow.appendChild(eventCompletedTD);
+            tableRow.appendChild(actionsTD);
 
             listTable.appendChild(tableRow);
         });
