@@ -147,7 +147,7 @@ export default class DOMHandler {
 
         const allEvents = document.getElementById('all-events');
         allEvents.addEventListener('click', (e) => {
-            let combinedLists = new List('all');
+            let combinedLists = new List('All Events');
             this.lists.forEach(list => {
                 const currentEvents = list.getEvents();
                 currentEvents.forEach(event => {
@@ -234,7 +234,16 @@ export default class DOMHandler {
         listHeader.innerHTML = '';
         const listNameEl = document.createElement('div');
         listNameEl.innerHTML = list.getTitle();
+        const listDel = document.createElement('div');
+        listDel.innerHTML ='&#10008;';
+        listDel.addEventListener('click', (e) => {
+            this.lists = this.lists.filter(currentList => currentList !== list);
+            this.redrawLists();
+            this.drawListEvents(this.lists[0]);
+        });
+
         listHeader.appendChild(listNameEl);
+        listHeader.appendChild(listDel);
 
         const listTable = window.document.getElementById('data-displayer-wrapper');
         listTable.innerHTML = '';
@@ -283,7 +292,7 @@ export default class DOMHandler {
             actionsTD.classList.add('actions');
             
             const completeActionTD = document.createElement('div');
-            completeActionTD.innerHTML = 'complete';
+            completeActionTD.innerHTML = '&#10004;';
             completeActionTD.addEventListener('click', (e) => {
                 const currentStatus = event.getCompletedStatus();
                 event.setCompletedStatus(!currentStatus);
@@ -292,7 +301,17 @@ export default class DOMHandler {
                 this.save();
             });
 
+            const deleteActionTD = document.createElement('div');
+            deleteActionTD.innerHTML = '&#10008;';
+            deleteActionTD.addEventListener('click', (e) => {
+                const result = list.removeElementByID(event.getID());
+                console.log('result of removal: ', result);
+                this.drawListEvents(list);
+                this.save();
+            });
+
             actionsTD.appendChild(completeActionTD);
+            actionsTD.appendChild(deleteActionTD);
             
             tableRow.appendChild(eventTitleTD);
             tableRow.appendChild(eventDueDateTD);
