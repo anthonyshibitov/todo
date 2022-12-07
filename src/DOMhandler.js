@@ -16,11 +16,6 @@ export default class DOMHandler {
     }
 
     attachListeners() {
-        const newTaskBtn = window.document.getElementById('new-task-btn');
-        newTaskBtn.addEventListener('click', () => {
-            console.log('newTaskBtn');;
-        });
-
         const homeLists = window.document.getElementById('home-lists');
         const homeListsLabel = homeLists.firstElementChild;
         homeListsLabel.addEventListener('click', () => {
@@ -104,7 +99,6 @@ export default class DOMHandler {
             const form = window.document.getElementById('new-event-form');
             const valid = form.checkValidity();
             if(valid){
-                console.log(eventTitle, eventDesc, eventDueDate, eventPriority, eventParentList);
                 this.closeModal(formAddEvent.closest('.modal'), window.document.getElementById('overlay'));
 
                 const newEvent = new Event(eventTitle, eventDesc, eventDueDate, eventPriority, false);
@@ -126,7 +120,6 @@ export default class DOMHandler {
                 eventDescEl.classList.remove('invalid');
                 eventDueDateEl.classList.remove('invalid');
             } else {
-                console.log('invalid!');
                 if(eventTitle == ''){
                     eventTitleEl.classList.add('invalid');
                 } else {
@@ -143,21 +136,23 @@ export default class DOMHandler {
                     eventDueDateEl.classList.remove('invalid');
                 }
             }
+
+            //redraw added to list
         });
 
-        const allEvents = document.getElementById('all-events');
-        allEvents.addEventListener('click', (e) => {
-            let combinedLists = new List('All Events');
-            this.lists.forEach(list => {
-                const currentEvents = list.getEvents();
-                currentEvents.forEach(event => {
-                    const eventCopy = event;
-                    eventCopy.setParent(-1);
-                    combinedLists.addEvent(event);
-                });
-            });
-            this.drawListEvents(combinedLists);
-        });
+        // const allEvents = document.getElementById('all-events');
+        // allEvents.addEventListener('click', (e) => {
+        //     let combinedLists = new List('All Events');
+        //     this.lists.forEach(list => {
+        //         const currentEvents = list.getEvents();
+        //         currentEvents.forEach(event => {
+        //             const eventCopy = event;
+        //             eventCopy.setParent(-1);
+        //             combinedLists.addEvent(event);
+        //         });
+        //     });
+        //     this.drawListEvents(combinedLists);
+        // });
 
         const openNewEventButtons = window.document.querySelectorAll('[data-modal-target]');
         const closeNewEventButtons = window.document.querySelectorAll('[data-close-button]');
@@ -171,7 +166,6 @@ export default class DOMHandler {
         });
 
         openNewEventButtons.forEach(button => {
-            console.log(button.name);
             button.addEventListener('click', () => {
                 const modal = window.document.querySelector(button.dataset.modalTarget);
                 this.openModal(modal, overlay);
@@ -197,7 +191,6 @@ export default class DOMHandler {
             liElement.innerHTML = "&#10095; " + list.getTitle();
             liElement.classList.add('clickable-list');
             liElement.addEventListener('click', () => {
-                console.log('clicked', list.getTitle());
                 const table = window.document.getElementById('data-displayer-wrapper');
                 table.dataset.list = list.getID();
                 this.drawListEvents(list);
@@ -305,7 +298,6 @@ export default class DOMHandler {
             deleteActionTD.innerHTML = '&#10008;';
             deleteActionTD.addEventListener('click', (e) => {
                 const result = list.removeElementByID(event.getID());
-                console.log('result of removal: ', result);
                 this.drawListEvents(list);
                 this.save();
             });
